@@ -1,0 +1,70 @@
+@import url("https://fonts.cdnfonts.com/css/homer-simpson-revised");
+body {
+  margin: 0;
+  background-image: url("../images/donut-50.png");
+  font-family: "Homer Simpson Revised", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 80px;
+}
+
+#game-box {
+  background-color: aqua;
+  width: 600px;
+  height: 400px;
+
+  background-image: url("../images/casa-simpsons.jpg");
+  background-position: center;
+  background-size: cover;
+
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+}
+#start-screen {
+  width: 600px;
+  height: 400px;
+  background-color: aqua;
+  background-image: url("../images/casa-simpsons.jpg");
+  background-position: center;
+  background-size: cover;
+}
+#start-logo {
+  width: 280px;
+}
+#start-btn,
+#reset-btn {
+  font-family: "Homer Simpson Revised", sans-serif;
+  font-size: 30px;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+}
+#game-over-screen {
+  width: 600px;
+  height: 400px;
+  background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../images/casa-simpsons.jpg");
+  background-position: center;
+  background-size: cover;
+}
+#game-over-logo {
+  width: 300px;
+}
+
+#game-screen,
+#game-over-screen {
+  display: none;
+}

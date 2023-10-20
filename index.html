@@ -3,7 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>The Simpsons Donut Run</title>
+    <link rel="stylesheet" href="./styles/styles.css" />
   </head>
-  <body></body>
+  <body>
+    <!--PANTALLA DE INICIO-->
+    <div id="start-screen" class="container">
+      <img id="start-logo" src="./images/homer-start-window.png" alt="logo" />
+      <button id="start-btn">Start!</button>
+    </div>
+    <!--PANTALLA DE JUEGO-->
+    <div id="game-screen" class="container">
+      <div id="game-box">
+        <!--aqui van las cosas del juego-->
+      </div>
+    </div>
+    <!--PANTALLA DE GAME OVER-->
+    <div id="game-over-screen" class="container">
+      <img id="game-over-logo" src="./images/homer-happy.png" alt="logo" />
+      <button id="reset-btn">Reset!</button>
+    </div>
+    <script src="./js/main.js"></script>
+    <script src="./js/game.js"></script>
+    <script src="./js/obstacle.js"></script>
+    <script src="./js/homer.js"></script>
+  </body>
 </html>
