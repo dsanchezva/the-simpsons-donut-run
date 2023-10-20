@@ -2,6 +2,7 @@ console.log("game");
 class Game {
   constructor() {
     this.gameIsOn = true; //para poder parar el juego
+    this.homer = new Homer();
   }
 
   //Funcionalidades del juego
@@ -12,10 +13,9 @@ class Game {
 
   //gameLoop
   gameLoop = () => {
-    console.log("recursion funcionando");
     //recursion
-    //if (this.gameIsOn === true) {
-    requestAnimationFrame(this.gameLoop);
-    //}
+    if (this.gameIsOn === true) {
+      requestAnimationFrame(this.gameLoop);
+    }
   };
 }

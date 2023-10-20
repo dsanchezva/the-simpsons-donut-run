@@ -20,4 +20,16 @@ const startGame = () => {
 };
 
 //event listener
+//boton Start
 startBtnNode.addEventListener("click", startGame);
+//movimiento con la tecla
+document.addEventListener("keydown", (event) => {
+  if (event.code === "ArrowLeft") {
+    gameObject.homer.movementLeft();
+  }
+});
+document.addEventListener("keydown", (event) => {
+  if (event.code === "ArrowRight") {
+    gameObject.homer.movementRight();
+  }
+});
