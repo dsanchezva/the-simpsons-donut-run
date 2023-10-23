@@ -3,10 +3,10 @@ class Homer {
   constructor() {
     //crear el elemento en el DOM
     this.homerNode = document.createElement("img"); //
-    this.homerNode.src = "./images/homer-icon-80.png"; //
+    this.homerNode.src = "./images/homer-icon-big.png"; //
     gameBoxNode.append(this.homerNode);
 
-    this.movementSpeed = 8; //velocidad de movimiento
+    this.movementSpeed = 10; //velocidad de movimiento
     //dimensiones
 
     this.w = 80;
