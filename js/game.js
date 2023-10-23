@@ -3,6 +3,7 @@ class Game {
   constructor() {
     this.gameIsOn = true; //para poder parar el juego
     this.homer = new Homer();
+    this.gameStop = false;
 
     this.gameObjectsArr = []; //array de objetos
     this.timer = 0;
@@ -10,14 +11,19 @@ class Game {
     this.level = 0;
     this.point = 0;
     this.lives = 3;
-    this.speedObject = 1;
+    this.speedObstacles = 1;
   }
 
   //Funcionalidades del juego
   levelUp = () => {
     if (this.point % 10 === 0) {
-      this.dificultUp -= 5;
-      this.speedObject += 0.5;
+      //por cada 10 niveles sube la velocidad
+      this.speedObstacles += 0.2;
+    } else if (this.point % 5 === 0) {
+      //por cada 5 niveles aumentan los objetos
+      if (this.dificultUp > 20) {
+        this.dificultUp -= 20;
+      }
     }
   };
 
@@ -32,14 +38,24 @@ class Game {
     } else {
       donut = true;
     }
+
     //creadion de objetos
     if (this.timer % this.dificultUp === 0) {
+      //posicion random
       let randomPoss = Math.random() * 500;
       if (donut === true) {
-        let newDonutObject = new Obstacle(randomPoss, donut);
+        let newDonutObject = new Obstacle(
+          randomPoss,
+          donut,
+          this.speedObstacles
+        );
         this.gameObjectsArr.push(newDonutObject);
       } else {
-        let newHealtyObject = new Obstacle(randomPoss, donut);
+        let newHealtyObject = new Obstacle(
+          randomPoss,
+          donut,
+          this.speedObstacles
+        );
         this.gameObjectsArr.push(newHealtyObject);
       }
     }
@@ -48,9 +64,11 @@ class Game {
   //desaparicion de objetos
 
   obstaclesDisapear = () => {
-    if (this.gameObjectsArr[0].y > 500) {
-      this.gameObjectsArr[0].obstacleNode.remove();
-      this.gameObjectsArr.shift();
+    if (this.gameObjectsArr.length > 0) {
+      if (this.gameObjectsArr[0].y > 500) {
+        this.gameObjectsArr[0].obstacleNode.remove();
+        this.gameObjectsArr.shift();
+      }
     }
   };
   // colisiones de objetos
@@ -69,7 +87,8 @@ class Game {
           //eliminamos el objeto del juego
           this.gameObjectsArr[index].obstacleNode.remove();
           this.gameObjectsArr.splice(index, 1);
-          console.log(this.point);
+          //llamada para aumentar el nivel
+          this.levelUp();
         }
       } else {
         //brocoli collision
@@ -83,10 +102,19 @@ class Game {
           this.gameObjectsArr[index].obstacleNode.remove();
           this.gameObjectsArr.splice(index, 1);
           this.lives--;
-          console.log(this.lives);
+          this.gameOver();
         }
       }
     });
+  };
+
+  gameOver = () => {
+    if (this.lives === 0) {
+      this.gameIsOn = false; //paramos el gameloop
+      gameScreenNode.style.display = "none"; //desctivamos la pantalla de juego
+      gameOverScreenNode.style.display = "flex"; //activamos la pantalla del final
+      this.gameStop = true;
+    }
   };
 
   return;
@@ -98,8 +126,6 @@ class Game {
     this.obstaclesDisapear();
     //colision de objetos
     this.collisionObstacles();
-    //subir de nivel
-    this.levelUp();
     //movimiento de los objetos
     this.gameObjectsArr.forEach((eachObject) => {
       eachObject.movement();

@@ -1,9 +1,9 @@
 console.log("obstacle");
 class Obstacle {
-  constructor(randomPoss, donut) {
+  constructor(randomPoss, donut, speed) {
     this.randomPoss = randomPoss;
     this.donut = donut;
-    this.speed = 1; //velocidad inicial de caida
+    this.speed = speed; //velocidad inicial de caida
     // crear el elemento
     this.obstacleNode = document.createElement("img");
     if (this.donut === true) {
