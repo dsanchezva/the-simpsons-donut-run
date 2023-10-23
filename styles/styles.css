@@ -36,7 +36,9 @@ body {
   background-image: url("../images/casa-simpsons.jpg");
   background-position: center;
   background-size: cover;
+  display: relative;
 }
+
 #start-logo {
   width: 280px;
 }
@@ -67,4 +69,26 @@ body {
 #game-screen,
 #game-over-screen {
   display: none;
+}
+
+#score-bar {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#score-bar img {
+  width: 20px;
+  height: 15px;
+}
+#life-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#life-bar h2 {
+  margin-right: 10px;
 }

@@ -1,6 +1,7 @@
 console.log("obstacle");
 class Obstacle {
   constructor(randomPoss, donut, speed) {
+    this.rotation = 0;
     this.randomPoss = randomPoss;
     this.donut = donut;
     this.speed = speed; //velocidad inicial de caida
@@ -14,9 +15,13 @@ class Obstacle {
       gameBoxNode.append(this.obstacleNode);
     }
     //dimensiones
-
-    this.w = 50;
-    this.h = 50;
+    if (donut === true) {
+      this.w = 50;
+      this.h = 80;
+    } else {
+      this.w = 80;
+      this.h = 50;
+    }
     this.x = this.randomPoss; //posicion lateral
     this.y = -50; //posicion vertical
 
@@ -31,5 +36,12 @@ class Obstacle {
   movement = () => {
     this.y += this.speed;
     this.obstacleNode.style.top = `${this.y}px`;
+  };
+
+  donutRotation = () => {
+    if (this.donut === true) {
+      this.rotation++;
+      this.obstacleNode.style.transform = `rotate(${this.rotation}deg)`;
+    }
   };
 }

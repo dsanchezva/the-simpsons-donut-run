@@ -3,7 +3,6 @@ class Game {
   constructor() {
     this.gameIsOn = true; //para poder parar el juego
     this.homer = new Homer();
-    this.gameStop = false;
 
     this.gameObjectsArr = []; //array de objetos
     this.timer = 0;
@@ -12,6 +11,8 @@ class Game {
     this.point = 0;
     this.lives = 3;
     this.speedObstacles = 1;
+
+    this.audioOuch = new Audio();
   }
 
   //Funcionalidades del juego
@@ -19,12 +20,30 @@ class Game {
     if (this.point % 10 === 0) {
       //por cada 10 niveles sube la velocidad
       this.speedObstacles += 0.2;
+      this.level++;
     } else if (this.point % 5 === 0) {
       //por cada 5 niveles aumentan los objetos
       if (this.dificultUp > 20) {
         this.dificultUp -= 20;
+        this.level++;
       }
     }
+  };
+  //Iformacion del juego en el DOM
+  undateInfo = () => {
+    console.log(this.lives);
+    if (this.lives < 3) {
+      lifeThreeNode.style.display = "none";
+    }
+    if (this.lives < 2) {
+      lifeTwoNode.style.display = "none";
+    }
+    if (this.lives < 1) {
+      lifeOneNode.style.display = "none";
+    }
+
+    scoreNode.innerText = `${this.point}`;
+    levelNode.innerText = `${this.level}`;
   };
 
   //creacion de objetos
@@ -60,7 +79,8 @@ class Game {
       }
     }
   };
-
+  //rotacion de los donuts
+  donutsRotation = () => {};
   //desaparicion de objetos
 
   obstaclesDisapear = () => {
@@ -103,25 +123,33 @@ class Game {
           this.gameObjectsArr.splice(index, 1);
           this.lives--;
           this.gameOver();
+          this.sonidoColision();
         }
       }
     });
   };
-
+  //sonido colision
+  sonidoColision = () => {
+    this.audioOuch.src = "./audio/homero-ouch-f.mp3";
+    this.audioOuch.volume = 0.05;
+    this.audioOuch.play().then(() => {
+      return true;
+    });
+  };
   gameOver = () => {
     if (this.lives === 0) {
       this.gameIsOn = false; //paramos el gameloop
       gameScreenNode.style.display = "none"; //desctivamos la pantalla de juego
       gameOverScreenNode.style.display = "flex"; //activamos la pantalla del final
-      this.gameStop = true;
     }
   };
 
-  return;
   //gameLoop
   gameLoop = () => {
     //creacion de objetos
     this.obstacleAppear();
+    //creacion datos del juego
+    this.undateInfo();
     //eliminacion de objetos
     this.obstaclesDisapear();
     //colision de objetos
