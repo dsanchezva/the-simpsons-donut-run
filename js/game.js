@@ -10,13 +10,14 @@ class Game {
     this.level = 0;
     this.point = 0;
     this.lives = 3;
-    this.speedObject = 2;
+    this.speedObject = 1;
   }
 
   //Funcionalidades del juego
   levelUp = () => {
-    if (level % 10 === 0) {
+    if (this.point % 10 === 0) {
       this.dificultUp -= 5;
+      this.speedObject += 0.5;
     }
   };
 
@@ -26,7 +27,7 @@ class Game {
     let donut = true;
     //selector de tipo de objeto random 70% brocolis
     let randomSelector = Math.random() * 10;
-    if (randomSelector > 3) {
+    if (randomSelector > 6) {
       donut = false;
     } else {
       donut = true;
@@ -34,7 +35,6 @@ class Game {
     //creadion de objetos
     if (this.timer % this.dificultUp === 0) {
       let randomPoss = Math.random() * 500;
-      console.log(randomPoss);
       if (donut === true) {
         let newDonutObject = new Obstacle(randomPoss, donut);
         this.gameObjectsArr.push(newDonutObject);
@@ -42,6 +42,15 @@ class Game {
         let newHealtyObject = new Obstacle(randomPoss, donut);
         this.gameObjectsArr.push(newHealtyObject);
       }
+    }
+  };
+
+  //desaparicion de objetos
+
+  obstaclesDisapear = () => {
+    if (this.gameObjectsArr[0].y > 500) {
+      this.gameObjectsArr[0].obstacleNode.remove();
+      this.gameObjectsArr.shift();
     }
   };
   // colisiones de objetos
@@ -56,11 +65,11 @@ class Game {
           obstacle.y + obstacle.h > this.homer.y
         ) {
           // Collision detected!
-          console.log("collision de donut");
           this.point++;
           //eliminamos el objeto del juego
           this.gameObjectsArr[index].obstacleNode.remove();
-          this.gameObjectsArr.slice(index, 1);
+          this.gameObjectsArr.splice(index, 1);
+          console.log(this.point);
         }
       } else {
         //brocoli collision
@@ -71,19 +80,13 @@ class Game {
           obstacle.y + obstacle.h > this.homer.y
         ) {
           // Collision detected!
-          console.log("collision de brocoli");
+          this.gameObjectsArr[index].obstacleNode.remove();
+          this.gameObjectsArr.splice(index, 1);
+          this.lives--;
+          console.log(this.lives);
         }
       }
     });
-  };
-
-  //desaparicion de objetos
-
-  obstaclesDisapear = () => {
-    if (this.gameObjectsArr[0].y > 500) {
-      this.gameObjectsArr[0].obstacleNode.remove();
-      this.gameObjectsArr.shift();
-    }
   };
 
   return;
@@ -95,6 +98,8 @@ class Game {
     this.obstaclesDisapear();
     //colision de objetos
     this.collisionObstacles();
+    //subir de nivel
+    this.levelUp();
     //movimiento de los objetos
     this.gameObjectsArr.forEach((eachObject) => {
       eachObject.movement();
