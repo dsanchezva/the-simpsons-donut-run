@@ -52,7 +52,7 @@ class Game {
     let donut = true;
     //selector de tipo de objeto random 70% brocolis
     let randomSelector = Math.random() * 10;
-    if (randomSelector > 6) {
+    if (randomSelector > 4) {
       donut = false;
     } else {
       donut = true;
@@ -131,7 +131,7 @@ class Game {
   //sonido colision
   sonidoColision = () => {
     this.audioOuch.src = "./audio/homero-ouch-f.mp3";
-    this.audioOuch.volume = 0.05;
+    this.audioOuch.volume = 0.1;
     this.audioOuch.play().then(() => {
       return true;
     });
