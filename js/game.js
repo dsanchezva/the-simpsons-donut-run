@@ -112,6 +112,11 @@ class Game {
           //llamada para aumentar el nivel
           this.levelUp();
           this.sonidoColisionDonut();
+          //cambio de icono cuando colisiona con un donut
+          this.homer.homerNode.src = "./images/homer-happy.png";
+          setTimeout(() => {
+            this.homer.homerNode.src = "./images/homer-icon-big.png";
+          }, 500);
         }
       } else {
         //brocoli collision
@@ -127,6 +132,11 @@ class Game {
           this.lives--;
           this.gameOver();
           this.sonidoColisionBrocoli();
+          //cambio de icono cuando colisiona con un brocoli
+          this.homer.homerNode.src = "./images/homer-angry-100.png";
+          setTimeout(() => {
+            this.homer.homerNode.src = "./images/homer-icon-big.png";
+          }, 500);
         }
       }
     });
