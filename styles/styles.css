@@ -1,13 +1,13 @@
 @import url("https://fonts.cdnfonts.com/css/homer-simpson-revised");
 body {
   margin: 0;
-  background: rgb(2, 0, 36);
+  background: rgb(238, 174, 202);
   background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(9, 121, 107, 1) 28%,
-    rgba(0, 212, 255, 1) 100%
+    87deg,
+    rgba(238, 174, 202, 1) 38%,
+    rgba(148, 187, 233, 1) 57%
   );
+  background-repeat: initial;
   font-family: "Homer Simpson Revised", sans-serif;
   display: flex;
   flex-direction: column;
@@ -41,12 +41,19 @@ body {
   width: 600px;
   height: 400px;
   background-color: aqua;
-  background-image: url("../images/casa-simpsons.jpg");
+  background-image: url("../images/start-background.jpg");
   background-position: center;
   background-size: cover;
   position: relative;
 }
-#unmute-btn {
+#start-screen h2 {
+  text-align: center;
+}
+#keys-logo {
+  height: 80px;
+  width: 120px;
+}
+.unmute-btn {
   position: absolute;
   top: 15px;
   left: 510px;
@@ -55,11 +62,11 @@ body {
   align-items: center;
   justify-content: center;
 }
-#unmute-btn img {
+.unmute-btn img {
   height: 20px;
   width: 20px;
 }
-#mute-btn {
+.mute-btn {
   position: absolute;
   top: 15px;
   left: 550px;
@@ -68,14 +75,20 @@ body {
   align-items: center;
   justify-content: center;
 }
-#mute-btn img {
+.mute-btn img {
   height: 20px;
   width: 20px;
 }
 #start-logo {
   width: 280px;
 }
-#start-btn,
+#start-btn {
+  font-family: "Homer Simpson Revised", sans-serif;
+  font-size: 30px;
+  padding: 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
 #reset-btn {
   font-family: "Homer Simpson Revised", sans-serif;
   font-size: 30px;
@@ -91,12 +104,14 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url("../images/casa-simpsons.jpg");
+  background-image: url("../images/taberna-moe .png");
   background-position: center;
   background-size: cover;
+  position: relative;
 }
 #game-over-logo {
-  width: 300px;
+  width: 200px;
+  height: 300px;
 }
 
 #game-screen,

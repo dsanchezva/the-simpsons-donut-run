@@ -13,6 +13,8 @@ class Game {
     this.speedObstacles = 1;
 
     this.audioOuch = new Audio();
+    this.audioYuhu = new Audio();
+    //crear el sonido
   }
 
   //Funcionalidades del juego
@@ -50,7 +52,7 @@ class Game {
   obstacleAppear = () => {
     //selector de donut o blrocoli
     let donut = true;
-    //selector de tipo de objeto random 70% brocolis
+    //selector de tipo de objeto random 60% brocolis
     let randomSelector = Math.random() * 10;
     if (randomSelector > 4) {
       donut = false;
@@ -109,6 +111,7 @@ class Game {
           this.gameObjectsArr.splice(index, 1);
           //llamada para aumentar el nivel
           this.levelUp();
+          this.sonidoColisionDonut();
         }
       } else {
         //brocoli collision
@@ -123,19 +126,27 @@ class Game {
           this.gameObjectsArr.splice(index, 1);
           this.lives--;
           this.gameOver();
-          this.sonidoColision();
+          this.sonidoColisionBrocoli();
         }
       }
     });
   };
   //sonido colision
-  sonidoColision = () => {
+  sonidoColisionBrocoli = () => {
     this.audioOuch.src = "./audio/homero-ouch-f.mp3";
     this.audioOuch.volume = 0.1;
     this.audioOuch.play().then(() => {
       return true;
     });
   };
+  sonidoColisionDonut = () => {
+    this.audioYuhu.src = "./audio/homer_simpson_yuju.mp3";
+    this.audioYuhu.volume = 0.1;
+    this.audioYuhu.play().then(() => {
+      return true;
+    });
+  };
+
   gameOver = () => {
     if (this.lives === 0) {
       this.gameIsOn = false; //paramos el gameloop

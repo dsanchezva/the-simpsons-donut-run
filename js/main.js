@@ -7,8 +7,10 @@ let gameOverScreenNode = document.querySelector("#game-over-screen");
 let gameBoxNode = document.querySelector("#game-box");
 let restartBtnNode = document.querySelector("#reset-btn");
 //botones sonido
-let muteBtnNode = document.querySelector("#mute-btn");
-let soundOnBtnNode = document.querySelector("#unmute-btn");
+let muteBtnNode = document.querySelector("#soundOff-startscreen");
+let soundOnBtnNode = document.querySelector("#soundOn-startscreen");
+let muteBtnOverNode = document.querySelector("#soundOff-gameOver");
+let soundOnBtnOverNode = document.querySelector("#soundOn-gameOver");
 //info para mostrar
 let lifeOneNode = document.querySelector("#life1");
 let lifeTwoNode = document.querySelector("#life2");
@@ -22,6 +24,12 @@ let gameObject;
 //crear el sonido
 let soundBackground = new Audio();
 let soundOn = true;
+soundBackground.src = "./audio/sound-simpsons.mp3";
+soundBackground.volume = 0.05;
+soundBackground.loop = true;
+soundBackground.play().then(() => {
+  return true;
+});
 //Star el juego
 const startGame = () => {
   startScreenNode.style.display = "none";
@@ -46,20 +54,15 @@ const restartGame = () => {
 };
 //iniciar el sonido de fondo
 const soundStart = () => {
-  soundOn = true;
-  console.log("soundStart");
-};
-const soundEnd = () => {
-  soundOn = false;
-  console.log("sound stop");
-};
-if (soundOn === true) {
-  soundBackground.src = "./audio/sound-simpsons.mp3";
-  soundBackground.volume = 0.1;
   soundBackground.play().then(() => {
     return true;
   });
-}
+};
+const soundEnd = () => {
+  soundOn = false;
+  soundBackground.pause();
+};
+
 //event listener
 //boton Start
 startBtnNode.addEventListener("click", startGame);
@@ -68,6 +71,8 @@ restartBtnNode.addEventListener("click", restartGame);
 //mute boton
 muteBtnNode.addEventListener("click", soundEnd);
 soundOnBtnNode.addEventListener("click", soundStart);
+muteBtnOverNode.addEventListener("click", soundEnd);
+soundOnBtnOverNode.addEventListener("click", soundStart);
 //movimiento con la tecla
 document.addEventListener("keydown", (event) => {
   if (event.code === "ArrowLeft") {

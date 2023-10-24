@@ -21,10 +21,12 @@
     </header>
     <!--PANTALLA DE INICIO-->
     <div id="start-screen" class="container">
-      <img id="start-logo" src="./images/homer-start-window.png" alt="logo" />
+      <!--<img id="start-logo" src="./images/homer-sleep.png" alt="logo" />-->
+      <img id="keys-logo" src="./images/arrows.png" alt="keyboar foto">
+      <h2>Move left and rigth to eat all the donuts!! <br>How many can you eat?</h2>
       <button id="start-btn">Start!</button>
-      <button id="mute-btn"><img src="./images/sound-on.png" alt="" /></button>
-      <button id="unmute-btn"><img src="./images/mute.png" alt="" /></button>
+      <button id="soundOn-startscreen" class="unmute-btn"><img src="./images/sound-on.png" alt="" /></button>
+      <button id="soundOff-startscreen" class="mute-btn"><img src="./images/mute.png" alt="" /></button>
     </div>
     </div>
     <!--PANTALLA DE JUEGO-->
@@ -49,8 +51,10 @@
     </div>
     <!--PANTALLA DE GAME OVER-->
     <div id="game-over-screen" class="container">
-      <img id="game-over-logo" src="./images/homer-happy.png" alt="logo" />
+      <img id="game-over-logo" src="./images/homer-ouch-big.png" alt="logo" />
       <button id="reset-btn">Reset!</button>
+      <button id="soundOn-gameOver" class="unmute-btn"><img src="./images/sound-on.png" alt="" /></button>
+      <button id="soundOff-gameOver" class="mute-btn"><img src="./images/mute.png" alt="" /></button>
     </div>
     <script src="./js/main.js"></script>
     <script src="./js/game.js"></script>
