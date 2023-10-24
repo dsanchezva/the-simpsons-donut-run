@@ -1,7 +1,6 @@
 @import url("https://fonts.cdnfonts.com/css/homer-simpson-revised");
 body {
   margin: 0;
-  /*background-image: url("../images/donut-50.png");*/
   background: rgb(2, 0, 36);
   background: linear-gradient(
     90deg,
@@ -45,9 +44,34 @@ body {
   background-image: url("../images/casa-simpsons.jpg");
   background-position: center;
   background-size: cover;
-  display: relative;
+  position: relative;
 }
-
+#unmute-btn {
+  position: absolute;
+  top: 15px;
+  left: 510px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#unmute-btn img {
+  height: 20px;
+  width: 20px;
+}
+#mute-btn {
+  position: absolute;
+  top: 15px;
+  left: 550px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#mute-btn img {
+  height: 20px;
+  width: 20px;
+}
 #start-logo {
   width: 280px;
 }
@@ -79,25 +103,51 @@ body {
 #game-over-screen {
   display: none;
 }
-
+#game-screen {
+  position: relative;
+}
 #score-bar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 100;
   height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 #score-bar img {
   width: 20px;
   height: 15px;
 }
 #life-bar {
+  position: absolute;
+  left: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 #life-bar h2 {
   margin-right: 10px;
+}
+#level-bar {
+  position: absolute;
+  left: 250px;
+}
+#point-bar {
+  position: relative;
+  left: 450px;
+  top: 0px;
+}
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#donut-run-logo {
+  height: 70px;
+  width: 250px;
+  margin-top: 25px;
+}
+#the-simpsons-logo {
+  height: 100px;
+  width: 200px;
 }

@@ -41,6 +41,9 @@ class Obstacle {
   donutRotation = () => {
     if (this.donut === true) {
       this.rotation++;
+      if (this.rotation === 360) {
+        this.rotation = 0;
+      }
       this.obstacleNode.style.transform = `rotate(${this.rotation}deg)`;
     }
   };

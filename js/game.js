@@ -157,6 +157,7 @@ class Game {
     //movimiento de los objetos
     this.gameObjectsArr.forEach((eachObject) => {
       eachObject.movement();
+      eachObject.donutRotation();
     });
 
     this.timer++;
