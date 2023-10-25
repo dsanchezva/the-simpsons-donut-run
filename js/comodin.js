@@ -19,8 +19,8 @@ class Comodin {
       this.w = 80;
       this.h = 50;
     } else {
-      this.w = 50;
-      this.h = 30;
+      this.w = 40;
+      this.h = 20;
     }
     this.x = this.randomPoss; //posicion lateral
     this.y = -50; //posicion vertical

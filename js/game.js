@@ -18,6 +18,7 @@ class Game {
     //crear el sonido
     this.audioOuch = new Audio();
     this.audioYuhu = new Audio();
+    this.audioGolpe = new Audio();
   }
 
   //Funcionalidades del juego
@@ -111,7 +112,6 @@ class Game {
     let randomPossComodin2 = Math.random() * 500;
     let randomPossComodin3 = Math.random() * 500;
     if (beer === true) {
-      console.log("duff");
       let newBeerObjects = new Comodin(
         randomPossComodin1,
         beer,
@@ -119,7 +119,6 @@ class Game {
       );
       this.comodinObjectsArr.push(newBeerObjects);
     } else {
-      console.log("plutonio");
       let newPlutonObject = new Comodin(
         randomPossComodin1,
         beer,
@@ -144,7 +143,7 @@ class Game {
 
   obstaclesDisapear = () => {
     if (this.gameObjectsArr.length > 0) {
-      if (this.gameObjectsArr[0].y > 500) {
+      if (this.gameObjectsArr[0].y > 500 || this.gameObjectsArr[0].y < -50) {
         this.gameObjectsArr[0].obstacleNode.remove();
         this.gameObjectsArr.shift();
       }
@@ -219,6 +218,7 @@ class Game {
             // SI SUPER HOMER ESTA ACTIVADO
           } else if (this.superHomer === true) {
             obstacle.isKicked = true;
+            this.sonidoGolpe();
           }
         }
       }
@@ -267,13 +267,13 @@ class Game {
           this.superVelocidad = true;
           //activar super velocidad
           this.superSpeed();
-          this.speedObstacles += 2;
+          this.speedObstacles += 1;
           if (this.dificultUp > 20) {
             this.dificultUp -= 20;
           }
           setTimeout(() => {
             this.superVelocidad = false;
-            this.speedObstacles -= 2;
+            this.speedObstacles -= 1;
             if (this.dificultUp > 20) {
               this.dificultUp += 20;
             }
@@ -304,6 +304,13 @@ class Game {
       return true;
     });
   };
+  sonidoGolpe = () => {
+    this.audioOuch.src = "./audio/golpe.mp3";
+    this.audioOuch.volume = 0.1;
+    this.audioOuch.play().then(() => {
+      return true;
+    });
+  };
 
   gameOver = () => {
     if (this.lives === 0) {
@@ -317,23 +324,23 @@ class Game {
   //cambio de fondo
   backgroundChange = () => {
     if (this.level === 1) {
-      gameBoxNode.style.backgroundImage = 'url("../images/fondo6.png")';
+      gameBoxNode.style.backgroundImage = 'url("./images/fondo6.png")';
     } else if (this.level === 2) {
-      gameBoxNode.style.backgroundImage = 'url("../images/fondo2.png")';
+      gameBoxNode.style.backgroundImage = 'url("./images/fondo2.png")';
     } else if (this.level === 3) {
-      gameBoxNode.style.backgroundImage = 'url("../images/fondo3.png")';
+      gameBoxNode.style.backgroundImage = 'url("./images/fondo3.png")';
     } else if (this.level === 4) {
-      gameBoxNode.style.backgroundImage = 'url("../images/fondo4.png")';
+      gameBoxNode.style.backgroundImage = 'url("./images/fondo4.png")';
     } else if (this.level === 5) {
-      gameBoxNode.style.backgroundImage = 'url("../images/fondo5.jpg")';
+      gameBoxNode.style.backgroundImage = 'url("./images/fondo5.jpg")';
     } else if (this.level === 6) {
-      gameBoxNode.style.backgroundImage = 'url("../images/fondo8.png")';
+      gameBoxNode.style.backgroundImage = 'url("./images/fondo8.png")';
     } else if (this.level === 7) {
-      gameBoxNode.style.backgroundImage = 'url("../images/fondo7.jpeg")';
+      gameBoxNode.style.backgroundImage = 'url("./images/fondo7.jpeg")';
     } else if (this.level === 8) {
-      gameBoxNode.style.backgroundImage = 'url("../images/taberna-moe .png")';
+      gameBoxNode.style.backgroundImage = 'url("./images/taberna-moe .png")';
     } else if (this.level > 9) {
-      gameBoxNode.style.backgroundImage = 'url("../images/casa-simpsons.jpeg")';
+      gameBoxNode.style.backgroundImage = 'url("./images/casa-simpsons.jpeg")';
     }
   };
   //gameLoop
