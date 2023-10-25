@@ -40,7 +40,7 @@ class Obstacle {
       this.y += this.speed;
       this.obstacleNode.style.top = `${this.y}px`;
     } else if (this.isKicked === true && this.donut === false) {
-      this.y -= 2;
+      this.y -= 4;
       this.obstacleNode.style.top = `${this.y}px`;
       this.x += this.randomkick;
       this.obstacleNode.style.left = `${this.x}px`;

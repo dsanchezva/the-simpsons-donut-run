@@ -218,7 +218,7 @@ class Game {
             }, 500);
             // SI SUPER HOMER ESTA ACTIVADO
           } else if (this.superHomer === true) {
-            obstacle.iskicked = true;
+            obstacle.isKicked = true;
           }
         }
       }
