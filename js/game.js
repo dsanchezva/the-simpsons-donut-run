@@ -101,7 +101,7 @@ class Game {
     let beer = true;
     //selector de tipo de objeto random 50%
     let randomSelector2 = Math.random() * 10;
-    if (randomSelector2 > 8) {
+    if (randomSelector2 > 5) {
       beer = false;
     } else {
       beer = true;
