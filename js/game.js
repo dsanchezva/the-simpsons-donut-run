@@ -26,12 +26,14 @@ class Game {
       this.speedObstacles += 0.2;
       this.level++;
       this.comodinAppear();
+      this.backgroundChange();
     } else if (this.point % 5 === 0) {
       //por cada 5 niveles aumentan los objetos
       if (this.dificultUp > 20) {
         this.dificultUp -= 20;
         this.level++;
         this.comodinAppear();
+        this.backgroundChange();
       }
     }
   };
@@ -283,7 +285,7 @@ class Game {
   //cambio de fondo
   backgroundChange = () => {
     if (this.level === 1) {
-      gameBoxNode.style.background-image = `src("./images/fondo2.png")`;
+      gameBoxNode.style.backgroundImage = "src(`./images/fondo2.png`)";
     } else if (this.level === 2) {
     } else if (this.level === 3) {
     } else if (this.level === 4) {
