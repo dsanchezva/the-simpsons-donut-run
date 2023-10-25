@@ -1,4 +1,3 @@
-console.log("game");
 class Game {
   constructor() {
     this.gameIsOn = true; //para poder parar el juego

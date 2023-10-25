@@ -1,4 +1,3 @@
-console.log("main");
 //elementos del DOM
 let startBtnNode = document.querySelector("#start-btn");
 let startScreenNode = document.querySelector("#start-screen");

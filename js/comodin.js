@@ -1,4 +1,3 @@
-console.log("comodin");
 class Comodin {
   constructor(randomPoss, beer, speed) {
     this.rotation = 0;

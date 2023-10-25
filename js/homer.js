@@ -1,4 +1,3 @@
-console.log("homer");
 class Homer {
   constructor() {
     //crear el elemento en el DOM

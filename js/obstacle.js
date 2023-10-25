@@ -1,4 +1,3 @@
-console.log("obstacle");
 class Obstacle {
   constructor(randomPoss, donut, speed, randomkick) {
     this.isKicked = false;
