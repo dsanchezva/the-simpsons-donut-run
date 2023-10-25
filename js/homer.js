@@ -5,10 +5,8 @@ class Homer {
     this.homerNode = document.createElement("img"); //
     this.homerNode.src = "./images/homer-icon-big.png"; //
     gameBoxNode.append(this.homerNode);
-
     this.movementSpeed = 15; //velocidad de movimiento
     //dimensiones
-
     this.w = 80;
     this.h = 80;
     this.x = 300; //posicion lateral

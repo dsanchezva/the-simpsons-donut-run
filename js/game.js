@@ -5,13 +5,15 @@ class Game {
     this.homer = new Homer();
 
     this.gameObjectsArr = []; //array de objetos
+    this.comodinObjectsArr = []; //array de comodines
     this.timer = 0;
     this.dificultUp = 120;
     this.level = 0;
     this.point = 0;
     this.lives = 3;
     this.speedObstacles = 1;
-
+    this.superHomer = false; //no hay colision cuando esta activo
+    this.superVelocidad = false; //aumentamos la velocidad cuando esta activo
     this.audioOuch = new Audio();
     this.audioYuhu = new Audio();
     //crear el sonido
@@ -23,17 +25,18 @@ class Game {
       //por cada 10 niveles sube la velocidad
       this.speedObstacles += 0.2;
       this.level++;
+      this.comodinAppear();
     } else if (this.point % 5 === 0) {
       //por cada 5 niveles aumentan los objetos
       if (this.dificultUp > 20) {
         this.dificultUp -= 20;
         this.level++;
+        this.comodinAppear();
       }
     }
   };
   //Iformacion del juego en el DOM
   undateInfo = () => {
-    console.log(this.lives);
     if (this.lives < 3) {
       lifeThreeNode.style.display = "none";
     }
@@ -81,8 +84,37 @@ class Game {
       }
     }
   };
-  //rotacion de los donuts
-  donutsRotation = () => {};
+  //creacion de comodines
+  comodinAppear = () => {
+    //selector de cerveza  o barra de plutonio
+    let beer = true;
+    //selector de tipo de objeto random 50%
+    let randomSelector2 = Math.random() * 10;
+    if (randomSelector2 > 5) {
+      beer = false;
+    } else {
+      beer = true;
+    }
+    //creacion del comodin
+    let randomPossComodin = Math.random() * 500;
+    if (beer === true) {
+      console.log("duff");
+      let newBeerObjects = new Comodin(
+        randomPossComodin,
+        beer,
+        this.speedObstacles
+      );
+      this.comodinObjectsArr.push(newBeerObjects);
+    } else {
+      console.log("plutonio");
+      let newPutonObject = new Comodin(
+        randomPossComodin,
+        beer,
+        this.speedObstacles
+      );
+      this.comodinObjectsArr.push(newPutonObject);
+    }
+  };
   //desaparicion de objetos
 
   obstaclesDisapear = () => {
@@ -90,6 +122,12 @@ class Game {
       if (this.gameObjectsArr[0].y > 500) {
         this.gameObjectsArr[0].obstacleNode.remove();
         this.gameObjectsArr.shift();
+      }
+    }
+    if (this.comodinObjectsArr.length > 0) {
+      if (this.comodinObjectsArr[0].y > 500) {
+        this.comodinObjectsArr[0].comodinNode.remove();
+        this.comodinObjectsArr.shift();
       }
     }
   };
@@ -113,12 +151,22 @@ class Game {
           this.levelUp();
           this.sonidoColisionDonut();
           //cambio de icono cuando colisiona con un donut
+          this.homer.homerNode.style.width = `80px`;
+          this.homer.homerNode.style.height = `80px`;
           this.homer.homerNode.src = "./images/homer-happy.png";
+
           setTimeout(() => {
-            this.homer.homerNode.src = "./images/homer-icon-big.png";
+            if (this.superHomer === false) {
+              this.homer.homerNode.src = "./images/homer-icon-big.png";
+            } else {
+              this.homer.homerNode.style.width = `90px`;
+              this.homer.homerNode.style.height = `150px`;
+              this.homer.homerNode.style.top = `255px`;
+              this.homer.homerNode.src = "./images/super-homer.png";
+            }
           }, 500);
         }
-      } else {
+      } else if (this.superHomer === false) {
         //brocoli collision
         if (
           obstacle.x < this.homer.x + this.homer.w &&
@@ -135,10 +183,78 @@ class Game {
           //cambio de icono cuando colisiona con un brocoli
           this.homer.homerNode.src = "./images/homer-angry-100.png";
           setTimeout(() => {
-            this.homer.homerNode.src = "./images/homer-icon-big.png";
+            if (this.superHomer === false) {
+              this.homer.homerNode.src = "./images/homer-icon-big.png";
+            } else {
+              this.homer.homerNode.src = "./images/super-homer.png";
+            }
           }, 500);
         }
       }
+    });
+    //colision de los comodines
+    this.comodinObjectsArr.forEach((comodin, index) => {
+      if (comodin.beer === true) {
+        if (
+          comodin.x < this.homer.x + this.homer.w &&
+          comodin.x + comodin.w > this.homer.x &&
+          comodin.y < this.homer.y + this.homer.h &&
+          comodin.y + comodin.h > this.homer.y
+        ) {
+          // Collision detectedcon cerveza
+          //eliminamos el objeto del juego
+          this.comodinObjectsArr[index].comodinNode.remove();
+          this.comodinObjectsArr.splice(index, 1);
+          this.sonidoColisionDonut();
+          //cambio de icono cuando colisiona con una cerveza
+          this.homer.homerNode.src = "./images/super-homer.png";
+          this.superHomer = true;
+          this.homer.homerNode.style.width = `90px`;
+          this.homer.homerNode.style.height = `150px`;
+          this.homer.homerNode.style.top = `255px`;
+          setTimeout(() => {
+            this.homer.homerNode.src = "./images/homer-icon-big.png";
+            this.superHomer = false;
+            this.homer.homerNode.style.width = `80px`;
+            this.homer.homerNode.style.height = `80px`;
+            this.homer.homerNode.style.top = `325px`;
+          }, 15000);
+        }
+      } else {
+        //plutonio collision
+        if (
+          comodin.x < this.homer.x + this.homer.w &&
+          comodin.x + comodin.w > this.homer.x &&
+          comodin.y < this.homer.y + this.homer.h &&
+          comodin.y + comodin.h > this.homer.y
+        ) {
+          // Collision detected!
+          this.comodinObjectsArr[index].comodinNode.remove();
+          this.comodinObjectsArr.splice(index, 1);
+          this.sonidoColisionBrocoli();
+          //cambio de velocidad cuando colisiona con el plutonio
+          this.superVelocidad = true;
+          //activar super velocidad
+          this.superSpeed();
+          this.speedObstacles += 3;
+          if (this.dificultUp > 20) {
+            this.dificultUp -= 20;
+          }
+          setTimeout(() => {
+            this.superVelocidad = false;
+            this.speedObstacles -= 3;
+            if (this.dificultUp > 20) {
+              this.dificultUp += 20;
+            }
+          }, 4000);
+        }
+      }
+    });
+  };
+  //supervelocidad
+  superSpeed = () => {
+    this.gameObjectsArr.forEach((eachObject, index) => {
+      eachObject.speed += 5;
     });
   };
   //sonido colision
@@ -164,7 +280,15 @@ class Game {
       gameOverScreenNode.style.display = "flex"; //activamos la pantalla del final
     }
   };
-
+  //cambio de fondo
+  backgroundChange = () => {
+    if (this.level === 1) {
+      gameBoxNode.style.background-image = `src("./images/fondo2.png")`;
+    } else if (this.level === 2) {
+    } else if (this.level === 3) {
+    } else if (this.level === 4) {
+    }
+  };
   //gameLoop
   gameLoop = () => {
     //creacion de objetos
@@ -179,6 +303,11 @@ class Game {
     this.gameObjectsArr.forEach((eachObject) => {
       eachObject.movement();
       eachObject.donutRotation();
+    });
+    //movimiento de los comodines
+    this.comodinObjectsArr.forEach((eachObject) => {
+      eachObject.movement();
+      eachObject.comodinRotation();
     });
 
     this.timer++;
