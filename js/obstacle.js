@@ -1,6 +1,8 @@
 console.log("obstacle");
 class Obstacle {
-  constructor(randomPoss, donut, speed) {
+  constructor(randomPoss, donut, speed, randomkick) {
+    this.isKicked = false;
+    this.randomkick = randomkick;
     this.rotation = 0;
     this.randomPoss = randomPoss;
     this.donut = donut;
@@ -34,8 +36,15 @@ class Obstacle {
   }
 
   movement = () => {
-    this.y += this.speed;
-    this.obstacleNode.style.top = `${this.y}px`;
+    if (this.isKicked === false || this.donut === true) {
+      this.y += this.speed;
+      this.obstacleNode.style.top = `${this.y}px`;
+    } else if (this.isKicked === true && this.donut === false) {
+      this.y -= 2;
+      this.obstacleNode.style.top = `${this.y}px`;
+      this.x += this.randomkick;
+      this.obstacleNode.style.left = `${this.x}px`;
+    }
   };
 
   donutRotation = () => {

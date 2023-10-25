@@ -13,10 +13,11 @@ class Game {
     this.lives = 3;
     this.speedObstacles = 1;
     this.superHomer = false; //no hay colision cuando esta activo
+    this.superKick = false;
     this.superVelocidad = false; //aumentamos la velocidad cuando esta activo
+    //crear el sonido
     this.audioOuch = new Audio();
     this.audioYuhu = new Audio();
-    //crear el sonido
   }
 
   //Funcionalidades del juego
@@ -69,6 +70,13 @@ class Game {
     if (this.timer % this.dificultUp === 0) {
       //posicion random
       let randomPoss = Math.random() * 500;
+      let randomKick = Math.random() * 10;
+      let kickdirection = 0;
+      if (randomKick > 5) {
+        kickdirection = this.speedObstacles;
+      } else if (randomKick < 5) {
+        kickdirection = this.speedObstacles * -1;
+      }
       if (donut === true) {
         let newDonutObject = new Obstacle(
           randomPoss,
@@ -80,7 +88,8 @@ class Game {
         let newHealtyObject = new Obstacle(
           randomPoss,
           donut,
-          this.speedObstacles
+          this.speedObstacles,
+          kickdirection
         );
         this.gameObjectsArr.push(newHealtyObject);
       }
@@ -92,29 +101,43 @@ class Game {
     let beer = true;
     //selector de tipo de objeto random 50%
     let randomSelector2 = Math.random() * 10;
-    if (randomSelector2 > 5) {
+    if (randomSelector2 > 8) {
       beer = false;
     } else {
       beer = true;
     }
     //creacion del comodin
-    let randomPossComodin = Math.random() * 500;
+    let randomPossComodin1 = Math.random() * 500;
+    let randomPossComodin2 = Math.random() * 500;
+    let randomPossComodin3 = Math.random() * 500;
     if (beer === true) {
       console.log("duff");
       let newBeerObjects = new Comodin(
-        randomPossComodin,
+        randomPossComodin1,
         beer,
         this.speedObstacles
       );
       this.comodinObjectsArr.push(newBeerObjects);
     } else {
       console.log("plutonio");
-      let newPutonObject = new Comodin(
-        randomPossComodin,
+      let newPlutonObject = new Comodin(
+        randomPossComodin1,
         beer,
         this.speedObstacles
       );
-      this.comodinObjectsArr.push(newPutonObject);
+      this.comodinObjectsArr.push(newPlutonObject);
+      let newPlutonObject2 = new Comodin(
+        randomPossComodin2,
+        beer,
+        this.speedObstacles
+      );
+      this.comodinObjectsArr.push(newPlutonObject2);
+      let newPlutonObject3 = new Comodin(
+        randomPossComodin3,
+        beer,
+        this.speedObstacles
+      );
+      this.comodinObjectsArr.push(newPlutonObject3);
     }
   };
   //desaparicion de objetos
@@ -168,7 +191,7 @@ class Game {
             }
           }, 500);
         }
-      } else if (this.superHomer === false) {
+      } else {
         //brocoli collision
         if (
           obstacle.x < this.homer.x + this.homer.w &&
@@ -176,21 +199,27 @@ class Game {
           obstacle.y < this.homer.y + this.homer.h &&
           obstacle.y + obstacle.h > this.homer.y
         ) {
-          // Collision detected!
-          this.gameObjectsArr[index].obstacleNode.remove();
-          this.gameObjectsArr.splice(index, 1);
-          this.lives--;
-          this.gameOver();
-          this.sonidoColisionBrocoli();
-          //cambio de icono cuando colisiona con un brocoli
-          this.homer.homerNode.src = "./images/homer-angry-100.png";
-          setTimeout(() => {
-            if (this.superHomer === false) {
-              this.homer.homerNode.src = "./images/homer-icon-big.png";
-            } else {
-              this.homer.homerNode.src = "./images/super-homer.png";
-            }
-          }, 500);
+          //SI SUPR HOMER ESTA DESACTIVADO SE PRODUCE LA COLISION NORMAL
+          if (this.superHomer === false) {
+            // Collision detected!
+            this.gameObjectsArr[index].obstacleNode.remove();
+            this.gameObjectsArr.splice(index, 1);
+            this.lives--;
+            this.gameOver();
+            this.sonidoColisionBrocoli();
+            //cambio de icono cuando colisiona con un brocoli
+            this.homer.homerNode.src = "./images/homer-angry-100.png";
+            setTimeout(() => {
+              if (this.superHomer === false) {
+                this.homer.homerNode.src = "./images/homer-icon-big.png";
+              } else {
+                this.homer.homerNode.src = "./images/super-homer.png";
+              }
+            }, 500);
+            // SI SUPER HOMER ESTA ACTIVADO
+          } else if (this.superHomer === true) {
+            obstacle.iskicked = true;
+          }
         }
       }
     });
@@ -238,13 +267,13 @@ class Game {
           this.superVelocidad = true;
           //activar super velocidad
           this.superSpeed();
-          this.speedObstacles += 3;
+          this.speedObstacles += 2;
           if (this.dificultUp > 20) {
             this.dificultUp -= 20;
           }
           setTimeout(() => {
             this.superVelocidad = false;
-            this.speedObstacles -= 3;
+            this.speedObstacles -= 2;
             if (this.dificultUp > 20) {
               this.dificultUp += 20;
             }
@@ -259,6 +288,7 @@ class Game {
       eachObject.speed += 5;
     });
   };
+
   //sonido colision
   sonidoColisionBrocoli = () => {
     this.audioOuch.src = "./audio/homero-ouch-f.mp3";
@@ -280,15 +310,30 @@ class Game {
       this.gameIsOn = false; //paramos el gameloop
       gameScreenNode.style.display = "none"; //desctivamos la pantalla de juego
       gameOverScreenNode.style.display = "flex"; //activamos la pantalla del final
+      gameBoxNode.style.backgroundImage = 'url("../images/casa-simpsons.jpg")';
     }
   };
+
   //cambio de fondo
   backgroundChange = () => {
     if (this.level === 1) {
-      gameBoxNode.style.backgroundImage = "src(`./images/fondo2.png`)";
+      gameBoxNode.style.backgroundImage = 'url("../images/fondo6.png")';
     } else if (this.level === 2) {
+      gameBoxNode.style.backgroundImage = 'url("../images/fondo2.png")';
     } else if (this.level === 3) {
+      gameBoxNode.style.backgroundImage = 'url("../images/fondo3.png")';
     } else if (this.level === 4) {
+      gameBoxNode.style.backgroundImage = 'url("../images/fondo4.png")';
+    } else if (this.level === 5) {
+      gameBoxNode.style.backgroundImage = 'url("../images/fondo5.jpg")';
+    } else if (this.level === 6) {
+      gameBoxNode.style.backgroundImage = 'url("../images/fondo8.png")';
+    } else if (this.level === 7) {
+      gameBoxNode.style.backgroundImage = 'url("../images/fondo7.jpeg")';
+    } else if (this.level === 8) {
+      gameBoxNode.style.backgroundImage = 'url("../images/taberna-moe .png")';
+    } else if (this.level > 9) {
+      gameBoxNode.style.backgroundImage = 'url("../images/casa-simpsons.jpeg")';
     }
   };
   //gameLoop

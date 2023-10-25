@@ -11,7 +11,7 @@ class Comodin {
       this.comodinNode.src = "./images/duff-beer.png";
       gameBoxNode.append(this.comodinNode);
     } else {
-      this.comodinNode.src = "./images/pez.png";
+      this.comodinNode.src = "./images/plutonium.png";
       gameBoxNode.append(this.comodinNode);
     }
     //dimensiones
@@ -19,8 +19,8 @@ class Comodin {
       this.w = 80;
       this.h = 50;
     } else {
-      this.w = 80;
-      this.h = 50;
+      this.w = 50;
+      this.h = 30;
     }
     this.x = this.randomPoss; //posicion lateral
     this.y = -50; //posicion vertical
@@ -37,7 +37,6 @@ class Comodin {
     this.y += this.speed;
     this.comodinNode.style.top = `${this.y}px`;
   };
-
   comodinRotation = () => {
     this.rotation++;
     if (this.rotation === 360) {
