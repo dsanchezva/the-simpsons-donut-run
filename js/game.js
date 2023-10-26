@@ -304,9 +304,9 @@ class Game {
     });
   };
   sonidoGolpe = () => {
-    this.audioOuch.src = "./audio/golpe.mp3";
-    this.audioOuch.volume = 0.1;
-    this.audioOuch.play().then(() => {
+    this.audioGolpe.src = "./audio/golpe.mp3";
+    this.audioGolpe.volume = 0.1;
+    this.audioGolpe.play().then(() => {
       return true;
     });
   };

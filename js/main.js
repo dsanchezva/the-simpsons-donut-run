@@ -45,7 +45,6 @@ const restartGame = () => {
   gameScreenNode.style.display = "flex";
   lifeTwoNode.style.display = "block";
   lifeThreeNode.style.display = "block";
-  gameBoxNode.style.backgroundImage = 'url("./images/casa-simpsons.jpeg")';
 
   gameBoxNode.innerHTML = ``;
   //comienza el gameLoop
