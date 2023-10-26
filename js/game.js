@@ -316,7 +316,7 @@ class Game {
       this.gameIsOn = false; //paramos el gameloop
       gameScreenNode.style.display = "none"; //desctivamos la pantalla de juego
       gameOverScreenNode.style.display = "flex"; //activamos la pantalla del final
-      gameBoxNode.style.backgroundImage = 'url("./images/casa-simpsons.jpg")';
+      gameBoxNode.style.backgroundImage = 'url("./images/fondo.7.png")';
     }
   };
 
