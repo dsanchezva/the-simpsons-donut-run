@@ -1,35 +1,35 @@
 class Game {
   constructor() {
-    this.gameIsOn = true; //para poder parar el juego
+    this.gameIsOn = true; //to start the game
     this.homer = new Homer();
 
-    this.gameObjectsArr = []; //array de objetos
-    this.comodinObjectsArr = []; //array de comodines
+    this.gameObjectsArr = []; //array of obstacles
+    this.comodinObjectsArr = []; //array of comodins
     this.timer = 0;
     this.dificultUp = 120;
     this.level = 0;
     this.point = 0;
     this.lives = 3;
     this.speedObstacles = 1;
-    this.superHomer = false; //no hay colision cuando esta activo
+    this.superHomer = false; //no broccili collision went active
     this.superKick = false;
-    this.superVelocidad = false; //aumentamos la velocidad cuando esta activo
+    this.superVelocidad = false; //speed up went active
     //crear el sonido
     this.audioOuch = new Audio();
     this.audioYuhu = new Audio();
     this.audioGolpe = new Audio();
   }
 
-  //Funcionalidades del juego
+  //Funcionality of the game
   levelUp = () => {
     if (this.point % 10 === 0) {
-      //por cada 10 niveles sube la velocidad
+      //every 10 levels increase the speed
       this.speedObstacles += 0.2;
       this.level++;
       this.comodinAppear();
       this.backgroundChange();
     } else if (this.point % 5 === 0) {
-      //por cada 5 niveles aumentan los objetos
+      // every 5 levels increase the amount spoon of obstacles
       if (this.dificultUp > 20) {
         this.dificultUp -= 20;
         this.level++;
@@ -38,7 +38,7 @@ class Game {
       }
     }
   };
-  //Iformacion del juego en el DOM
+  //Info of the game in DOM
   undateInfo = () => {
     if (this.lives < 3) {
       lifeThreeNode.style.display = "none";
@@ -54,11 +54,10 @@ class Game {
     levelNode.innerText = `${this.level}`;
   };
 
-  //creacion de objetos
   obstacleAppear = () => {
-    //selector de donut o blrocoli
+    //selector  donut or blrocoli
     let donut = true;
-    //selector de tipo de objeto random 60% brocolis
+    //selector random 60% broccolis
     let randomSelector = Math.random() * 10;
     if (randomSelector > 4) {
       donut = false;
@@ -66,7 +65,7 @@ class Game {
       donut = true;
     }
 
-    //creadion de objetos
+    //creation of obstacles
     if (this.timer % this.dificultUp === 0) {
       //posicion random
       let randomPoss = Math.random() * 500;
@@ -95,18 +94,18 @@ class Game {
       }
     }
   };
-  //creacion de comodines
+
   comodinAppear = () => {
-    //selector de cerveza  o barra de plutonio
+    //selector beer or plutonium bar
     let beer = true;
-    //selector de tipo de objeto random 50%
+    //selectorrandom 50%
     let randomSelector2 = Math.random() * 10;
     if (randomSelector2 > 5) {
       beer = false;
     } else {
       beer = true;
     }
-    //creacion del comodin
+    //comodin creation
     let randomPossComodin1 = Math.random() * 500;
     let randomPossComodin2 = Math.random() * 500;
     let randomPossComodin3 = Math.random() * 500;
@@ -138,7 +137,6 @@ class Game {
       this.comodinObjectsArr.push(newPlutonObject3);
     }
   };
-  //desaparicion de objetos
 
   obstaclesDisapear = () => {
     if (this.gameObjectsArr.length > 0) {
@@ -281,7 +279,7 @@ class Game {
       }
     });
   };
-  //supervelocidad
+
   superSpeed = () => {
     this.gameObjectsArr.forEach((eachObject, index) => {
       eachObject.speed += 5;
@@ -316,7 +314,6 @@ class Game {
       this.gameIsOn = false; //paramos el gameloop
       gameScreenNode.style.display = "none"; //desctivamos la pantalla de juego
       gameOverScreenNode.style.display = "flex"; //activamos la pantalla del final
-      // gameBoxNode.style.backgroundImage = 'url("./images/fondo7.jpeg")';
     }
   };
 

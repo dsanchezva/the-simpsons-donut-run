@@ -3,8 +3,8 @@ class Comodin {
     this.rotation = 0;
     this.randomPoss = randomPoss;
     this.beer = beer;
-    this.speed = speed; //velocidad inicial de caida
-    // crear el elemento
+    this.speed = speed; //initial speed
+    // create the element
     this.comodinNode = document.createElement("img");
     if (this.beer === true) {
       this.comodinNode.src = "./images/duff-beer.png";
@@ -21,10 +21,10 @@ class Comodin {
       this.w = 40;
       this.h = 20;
     }
-    this.x = this.randomPoss; //posicion lateral
-    this.y = -50; //posicion vertical
+    this.x = this.randomPoss; //possition lateral
+    this.y = -50; //possition vertical
 
-    //cambiar las dimensiones en el dom
+    //change the  dimension on the DOM
     this.comodinNode.style.width = `${this.w}px`;
     this.comodinNode.style.height = `${this.h}px`;
     this.comodinNode.style.position = "absolute";
