@@ -135,7 +135,7 @@ The Simpsons Donut Run is a simple game where Homer have to eat to much Donut yo
 
 ### Slides
 
-[Link](www.your-slides-url-here.com)
+[Link](https://docs.google.com/presentation/d/1DV2NBOsRPl-l1SD8mUNlPoukO9pK0_5_mHdi_haPn9o/edit?usp=sharing)
 
 ## Deploy
 
